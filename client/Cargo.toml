@@ -1,0 +1,24 @@
+[package]
+name = "snake-client"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# UI
+eframe = "0.28"
+egui   = "0.28"
+
+# Async + WS
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "time", "sync"] }
+tokio-tungstenite = "0.23"
+futures-util = "0.3"
+
+# Serde
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Optional: build ws URL from env/args
+url = "2"
+
+# Run server in-process (library target from ../server)
+snake-server = { path = "../server" }
