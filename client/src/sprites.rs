@@ -76,9 +76,9 @@ fn body_sprite(size: [usize; 2]) -> ColorImage {
         let mut b = (60.0 * light) as u8;
 
         let border = smoothstep(0.8, 0.0, d.abs());
-        r = ((r as f32 * (1.0 - 0.2 * border)) as u8).min(255);
-        g = ((g as f32 * (1.0 - 0.2 * border)) as u8).min(255);
-        b = ((b as f32 * (1.0 - 0.2 * border)) as u8).min(255);
+        r = (r as f32 * (1.0 - 0.2 * border)) as u8;
+        g = (g as f32 * (1.0 - 0.2 * border)) as u8;
+        b = (b as f32 * (1.0 - 0.2 * border)) as u8;
 
         let inner = smoothstep(-radius * 0.4, -radius * 0.9, d);
         r = r.saturating_add((20.0 * inner) as u8);
@@ -106,9 +106,9 @@ fn apple_sprite(size: [usize; 2]) -> ColorImage {
         let mut b = (40.0 * light) as u8;
 
         let rim = smoothstep(0.0, 2.0, d);
-        r = ((r as f32 * (1.0 - 0.25 * rim)) as u8).min(255);
-        g = ((g as f32 * (1.0 - 0.25 * rim)) as u8).min(255);
-        b = ((b as f32 * (1.0 - 0.25 * rim)) as u8).min(255);
+        r = (r as f32 * (1.0 - 0.25 * rim)) as u8;
+        g = (g as f32 * (1.0 - 0.25 * rim)) as u8;
+        b = (b as f32 * (1.0 - 0.25 * rim)) as u8;
 
         let hl = ((p.0 - w * 0.38).powi(2) + (p.1 - h * 0.42).powi(2)).sqrt() / (w * 0.08);
         let spec = (1.0 - hl).clamp(0.0, 1.0);

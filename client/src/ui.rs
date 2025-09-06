@@ -139,7 +139,7 @@ impl eframe::App for SnakeApp {
                                     {
                                         if self
                                             .last_milestone
-                                            .map_or(true, |prev_idx| idx > prev_idx)
+                                            .is_none_or(|prev_idx| idx > prev_idx)
                                         {
                                             self.last_milestone = Some(idx);
                                             self.milestone_text = Some(label.to_string());
@@ -297,7 +297,7 @@ impl eframe::App for SnakeApp {
             );
 
             // players (alive only). Hide my own snake until countdown ends.
-            let countdown_active = self.countdown_end.map_or(false, |t| Instant::now() < t);
+            let countdown_active = self.countdown_end.is_some_and(|t| Instant::now() < t);
             let my_id = self.net.as_ref().and_then(|n| n.me.as_ref());
             for (pi, p) in world.players.iter().enumerate().filter(|(_, p)| p.alive) {
                 if countdown_active {
@@ -333,7 +333,7 @@ impl eframe::App for SnakeApp {
             // Overlays (game over etc.) and scoreboard next to board with fixed gap
             let suppress = self
                 .suppress_gameover_until
-                .map_or(false, |t| Instant::now() < t);
+                .is_some_and(|t| Instant::now() < t);
             let overlay = ui_overlays::show(
                 ctx,
                 board_rect,
@@ -396,7 +396,7 @@ impl eframe::App for SnakeApp {
                         };
                         let font = FontId::new(COUNTDOWN_FONT_SIZE, family);
                         let color = crate::theme::ACCENT;
-                        let mut job = LayoutJob::simple_singleline(text.into(), font, color);
+                        let mut job = LayoutJob::simple_singleline(text, font, color);
                         job.wrap.max_width = f32::INFINITY;
                         ui.label(job);
                     });
@@ -425,7 +425,7 @@ impl eframe::App for SnakeApp {
                             };
                             let font = FontId::new(MILESTONE_FONT_SIZE, family);
                             let color = crate::theme::ACCENT;
-                            let mut job = LayoutJob::simple_singleline(text.into(), font, color);
+                            let mut job = LayoutJob::simple_singleline(text, font, color);
                             job.wrap.max_width = f32::INFINITY;
                             ui.label(job);
                         });

@@ -33,6 +33,6 @@ impl BottomBar {
 
     fn frame_stats(ctx: &egui::Context) -> (f32, f32) {
         let dt = ctx.input(|i| i.stable_dt).max(1.0 / 240.0);
-        (dt as f32 * 1000.0, (1.0 / dt) as f32)
+        (dt * 1000.0, ((1.0 / dt)))
     }
 }
